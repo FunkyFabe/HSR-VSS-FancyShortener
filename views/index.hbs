@@ -1,0 +1,24 @@
+<h1>Fancy URL Shortener</h1>
+
+<div>
+    <form method="post" action="/{{config.prefix}}/registerURL">
+        <p>
+            <label>Short URL:
+                <input type="text" name="alias" required>
+            </label>
+        </p>
+
+        <div class="error">{{errMsg}}</div>
+
+        <p>
+            <label>Original URL:
+                <input type="url" name="originalUrl" required>
+            </label>
+        </p>
+
+        <p>
+            <input type="submit" value="submit">
+        </p>
+
+    </form>
+</div>
