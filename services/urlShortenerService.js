@@ -19,14 +19,13 @@ function ShortUrl(reservation) {
     };
     this.expDBObject = {
         key: '/' + reservation.alias,
-        value: date.toString()
+        value: date
     }
 }
 
 module.exports.insertURL = function (reservation, callback) {
     let shortUrl = new ShortUrl(reservation);
     urlDB.findOne({key:shortUrl.urlDBObject.key},{},function (err, lookup) {
-        console.log(lookup);
         if(lookup == null){
         urlDB.insert(shortUrl.urlDBObject, function (err, url) {
             expDB.insert(shortUrl.expDBObject, function (err, exp) {
@@ -54,3 +53,5 @@ schedule.scheduleJob('00 00 03 * * 1-7', function(){
         }
     })
 });
+
+module.exports = {expDB, urlDB};
