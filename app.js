@@ -29,6 +29,10 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function (req, res, next) {
+    console.log('received a request');
+    next();
+});
 
 app.use('/fs/', indexRoutes);
 app.use('/', lookupRoutes);

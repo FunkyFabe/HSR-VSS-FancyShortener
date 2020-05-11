@@ -1,7 +1,7 @@
 "use strict";
 const redis = require("redis");
 
-const client = redis.createClient();
+const client = redis.createClient({host: 'storage'}); // TODO: Set host for local development via .env file
 
 function ShortUrl(reservation) {
   let date = new Date(); // Now

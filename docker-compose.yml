@@ -1,0 +1,33 @@
+version: '3'
+services:
+  service:
+    build: .
+    image: fancy-shortener/service
+    depends_on:
+      - storage
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.service.rule=PathPrefix(`/`)"
+      - "traefik.http.middlewares.service-auth.basicauth.users=test:$$2y$$05$$ZR1YkWtN/5CZpUKHVqr5/.vyV8IeHVrX36KiBNCPHWqMaAmzpkTrO"
+      - "traefik.http.routers.service.middlewares=service-auth@docker"
+      - "traefik.http.routers.service.entrypoints=web"
+  storage:
+    image: redis:6.0.1-alpine
+    expose:
+      - 6379
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    depends_on:
+      - storage
