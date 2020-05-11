@@ -10,7 +10,7 @@ module.exports.index = function (req, res) {
 module.exports.lookupShortUrl = function (req, res) {
     notificationService.find(req.path, function (lookup) {
         if (lookup) {
-            res.redirect(lookup.value);
+            res.redirect(lookup);
         } else {
             res.render('pageNotFound', {title: "Page Not Found", "config": config});
         }
