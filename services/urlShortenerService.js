@@ -33,7 +33,7 @@ module.exports.insertURL = function (reservation, callback) {
             });
         });
         } else {
-            callback("Short Url is already Taken! Please try a new One", null, null);
+            callback("Short URL is already Taken! Please try a new one", null, null);
         }
     });
 
@@ -53,5 +53,3 @@ schedule.scheduleJob('00 00 03 * * 1-7', function(){
         }
     })
 });
-
-module.exports = {expDB, urlDB};
